@@ -73,8 +73,8 @@
                     <div  class="large-text">
                       <div>oid = 100,  pre_site = A </div>
                       <div>name = Fish_Cnt, <span v-bind:class="{changingB: serverA.active_value}">value = {{serverA.value}}</span> </div>
-                      <div v-if="serverA.isLocked" class="changingB"> LOCKED </div>
-                      <div v-if="!serverA.isLocked" class="changingC"> UNLOCKED </div>
+                      <div v-if="serverA.isLocked" class="redColor"> LOCKED </div>
+                      <div v-if="!serverA.isLocked" class="blueColor"> UNLOCKED </div>
                     </div>
                   </el-collapse-item>
                   <el-collapse-item title="[Status]" name="2">
@@ -142,9 +142,6 @@
       </el-col>
     </el-row>
 
-    <el-row>
-
-    </el-row>
 
     <div align="center">
       <el-button type="primary" @click="emulate()">go</el-button>
@@ -414,11 +411,11 @@
   }
 
 
-  .changingB{
+  .redColor{
     color : red
   }
 
-  .changingC{
+  .blueColor{
     color : blue
   }
 </style>
