@@ -350,6 +350,9 @@
             this.serverC.committedVTS = "[3,5,5]"
             this.serverC.active_valueB = true
             this.serverC.active_cmtB = true
+
+            this.serverA.History = "NULL"
+            this.serverA.active_History = false
           },
 
 

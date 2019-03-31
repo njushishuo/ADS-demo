@@ -154,8 +154,8 @@
             serverA:{
               activeNames:[],
               value : "{ Tom:1 , Jerry:1 }",
-              committedVTS : "[3,4,5]",
-              History: "<3,2> , Fish_Cnt = 10",
+              committedVTS : "[2,1,3]",
+              History: "NULL ",
               vote:"NULL",
 
               isLocked:false,
@@ -169,7 +169,7 @@
             serverB:{
               activeNames:[],
               value : "{ Tom:1 , Jerry:1 }",
-              committedVTS : "[3,4,5]",
+              committedVTS : "[2,1,3]",
               History: "NULL",
               current_tx_no : "NULL",
               commit_method: "NULL",
@@ -189,7 +189,7 @@
             serverC:{
               activeNames:[],
               value : "{ Tom:1 , Jerry:1 }",
-              committedVTS : "[3,4,5]",
+              committedVTS : "[2,1,3]",
               History: "NULL",
 
               current_tx_no : "NULL",

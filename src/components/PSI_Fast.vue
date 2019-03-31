@@ -184,6 +184,7 @@
             this.serverB.active_cmt = true
 
             this.serverA.active_tx_rt = false
+            this.serverA.History = "NULL"
 
           },
 
