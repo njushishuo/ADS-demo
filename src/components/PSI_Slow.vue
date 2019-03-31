@@ -13,10 +13,10 @@
           </div>
           <div>
             <el-row>
-              <el-col :span="8">
-                <img src="../assets/host.png">
+              <el-col :span="6">
+                <img src="../assets/host_s.png">
               </el-col>
-              <el-col :span="16" align="left">
+              <el-col :span="18" align="left">
 
                 <el-collapse v-model="serverB.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1">
@@ -60,10 +60,10 @@
           </div>
           <div>
             <el-row>
-              <el-col :span="8">
-                <img src="../assets/host.png">
+              <el-col :span="6">
+                <img src="../assets/host_s.png">
               </el-col>
-              <el-col :span="16" align="left">
+              <el-col :span="18" align="left">
 
                 <el-collapse v-model="serverA.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1" >
@@ -104,11 +104,11 @@
           </div>
           <div>
             <el-row>
-              <el-col :span="8">
-                <img src="../assets/host.png">
+              <el-col :span="6">
+                <img src="../assets/host_s.png">
 
               </el-col>
-              <el-col :span="16" align="left">
+              <el-col :span="18" align="left">
                 <el-collapse v-model="serverC.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1">
                     <div  class="large-text">
@@ -407,7 +407,8 @@
 <style scoped>
 
   .box-card {
-    width: 550px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .large-text{
