@@ -6,7 +6,6 @@
       <el-col :span="12" align="center">
         <div class="img-container" align="center">
           <img src="../assets/shop.png">
-          <p>10 fish on sale</p>
         </div>
         <el-card class="box-card" style="margin-bottom: 10px;">
           <div slot="header">
@@ -19,33 +18,32 @@
               </el-col>
               <el-col :span="16" align="left">
 
-                <el-collapse v-model="activeNames" @change="handleChange">
+                <el-collapse v-model="serverA.activeNames" >
+
                   <el-collapse-item title="[Data]" name="1" >
                     <div  class="large-text">
                       <div>oid = 100,  pre_site = A </div>
                       <div>name = Fish_Cnt, <span v-bind:class="{redColor: serverA.active_value}">value = {{serverA.value}}</span> </div>
-                      <div v-if="serverA.isLocked" class="redColor"> LOCKED </div>
-                      <div v-if="!serverA.isLocked" class="blueColor"> UNLOCKED </div>
+                      <div class="blueColor"> UNLOCKED </div>
                     </div>
                   </el-collapse-item>
+
                   <el-collapse-item title="[Status]" name="2">
                     <div  class="large-text" v-bind:class="{redColor: serverA.active_cmt}">committedVTS = {{serverA.committedVTS}}</div>
                     <div  class="large-text" v-bind:class="{redColor: serverA.active_History}">History[100] = {{serverA.History}}</div>
                   </el-collapse-item>
+
+                  <el-collapse-item title="[Transaction]" name="3"  >
+                      <div  class="large-text"  v-bind:class="{redColor: serverA.active_tx_no}"> current_tx_no = {{serverA.current_tx_no}} </div>
+                      <div class="large-text" v-bind:class="{redColor: serverA.active_tx_md}"> commit_method = {{serverA.commit_method}} </div>
+                      <div class="large-text" v-bind:class="{redColor: serverA.active_tx_rt}"> tx_result = {{serverA.tx_result}} </div>
+                  </el-collapse-item>
+
+                  <el-collapse-item title="[Buffer]" name="4">
+                    <div class="large-text" v-bind:class="{redColor: serverA.active_buffer}"> {{serverA.buffer}} </div>
+                  </el-collapse-item>
+
                 </el-collapse>
-
-                <el-collapse-item title="[Transaction]" name="3"  >
-                  <divv v-bind:class="{ redColor : active}">
-                    <div  class="large-text"  v-bind:class="{redColor: serverA.active_tx_no}"> current_tx_no = {{serverA.current_tx_no}} </div>
-                    <div class="large-text" v-bind:class="{redColor: serverA.active_tx_md}"> commit_method = {{serverA.commit_method}} </div>
-                    <div class="large-text" v-bind:class="{redColor: serverA.active_tx_rt}"> tx_result = {{serverA.tx_result}} </div>
-                  </divv>
-
-                </el-collapse-item>
-                <el-collapse-item title="[Buffer]" name="4">
-                  <div class="large-text" v-bind:class="{redColor: serverA.active_buffer}"> {{serverA.buffer}} </div>
-                </el-collapse-item>
-
               </el-col>
             </el-row>
           </div>
@@ -68,7 +66,7 @@
                 <img src="../assets/host.png">
               </el-col>
               <el-col :span="16" align="left">
-                <el-collapse v-model="activeNames" @change="handleChange">
+                <el-collapse v-model="serverB.activeNames" >
                   <el-collapse-item title="[Data]" name="1">
                     <div  class="large-text">
                       <div>oid = 100,  pre_site = A </div>
@@ -85,8 +83,9 @@
           </div>
         </el-card>
       </el-col>
-
     </el-row>
+
+
 
     <el-row>
       <div align="center">
@@ -107,11 +106,17 @@
             currentStep:1,
 
             serverA:{
+
+              activeNames:[],
+
               value : "5",
               committedVTS : "[2,3]",
-              History: "<1,2> , Fish_Cnt = 5",
+              History: "<1,1> , Fish_Cnt = 5",
+              current_tx_no : "NULL",
+              commit_method: "NULL",
+              tx_result:"NULL",
+              buffer: "NULL",
 
-              isLocked:false,
               active_value:false,
               active_History:false,
               active_cmt:false,
@@ -123,6 +128,9 @@
             },
 
             serverB:{
+
+
+              activeNames:[],
               value : "5",
               committedVTS : "[2,3]",
               History: "NULL",
@@ -135,22 +143,77 @@
         },
 
         methods: {
-          serverB_exec() {
-            this.serverB.current_tx_no = 5
-            this.serverB.commit_method = "SLOW_COMMIT"
-            this.serverB.buffer = "(Write) Fish_Cnt = 8"
+          serverA_exec() {
+            this.serverA.current_tx_no = 3
+            this.serverA.commit_method = "FAST_COMMIT"
+            this.serverA.buffer = "(Write) Fish_Cnt = 10"
 
-            this.serverB.active_tx_no = true
-            this.serverB.active_tx_md = true
-            this.serverB.active_buffer = true
+            this.serverA.active_tx_no = true
+            this.serverA.active_tx_md = true
+            this.serverA.active_buffer = true
           },
+
+          check_process(){
+            //check
+            this.serverA.History = "<1,3>, Fish_Cnt = 10"
+            this.serverA.active_History = true
+          },
+
+          serverA_commit(){
+            this.serverA.tx_result="Commit"
+            this.serverA.value = 10
+            this.serverA.committedVTS = "[3,3]"
+
+            this.serverA.active_tx_rt = true
+            this.serverA.active_value = true
+            this.serverA.active_cmt = true
+
+            this.serverA.active_tx_no = false
+            this.serverA.active_tx_md = false
+            this.serverA.active_buffer = false
+            this.serverA.active_History = false
+
+          },
+
+          serverA_propogate(){
+
+            this.serverB.value = 10
+            this.serverB.committedVTS = [3,3]
+
+            this.serverB.active_value = true
+            this.serverB.active_cmt = true
+
+            this.serverA.active_tx_rt = false
+
+          },
+
+          emulate(){
+            switch (this.currentStep) {
+              case 1: this.serverA_exec()
+                      this.currentStep++
+                      break
+              case 2: this.check_process()
+                      this.currentStep++
+                      break
+              case 3: this.serverA_commit()
+                      this.currentStep++
+                      break
+              case 4: this.serverA_propogate()
+                      this.currentStep++
+                      break
+            }
+          }
+
+
         }
     }
 </script>
 
 <style scoped>
+
   .box-card {
     width: 650px;
+    margin-bottom: 20px;
   }
 
   .large-text{

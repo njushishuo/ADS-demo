@@ -5,7 +5,6 @@
       <el-col :span="8" align="center" >
         <div class="img-container" align="center">
           <img src="../assets/cat1.png">
-          <img src="../assets/fish2.jpg">
         </div>
         <el-card class="box-card">
           <div slot="header">
@@ -21,8 +20,9 @@
                 <el-collapse v-model="serverB.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1">
                     <div  class="large-text">
-                      <div>oid = 100,  pre_site = A </div>
-                      <div>name = Fish_Cnt, <span v-bind:class="{changingB: serverB.active_value}">value = {{serverB.value}}</span> </div>
+                      <div>set_id = 20 , pre_site = A , </div>
+                      <div>name = Followers ,</div>
+                      <div v-bind:class="{changingB: serverB.active_value}">value = {{serverB.value}}</div>
                     </div>
                   </el-collapse-item>
                   <el-collapse-item title="[Status]" name="2">
@@ -30,9 +30,9 @@
                     <div  class="large-text" v-bind:class="{changingB: serverB.active_History}">History[100] = {{serverB.History}}</div>
                   </el-collapse-item>
                   <el-collapse-item title="[Transaction]" name="3"  >
-                      <div  class="large-text"  v-bind:class="{changingB: serverB.active_tx_no}"> current_tx_no = {{serverB.current_tx_no}} </div>
-                      <div class="large-text" v-bind:class="{changingB: serverB.active_tx_md}"> commit_method = {{serverB.commit_method}} </div>
-                      <div class="large-text" v-bind:class="{changingB: serverB.active_tx_rt}"> tx_result = {{serverB.tx_result}} </div>
+                    <div  class="large-text"  v-bind:class="{changingB: serverB.active_tx_no}"> current_tx_no = {{serverB.current_tx_no}} </div>
+                    <div class="large-text" v-bind:class="{changingB: serverB.active_tx_md}"> commit_method = {{serverB.commit_method}} </div>
+                    <div class="large-text" v-bind:class="{changingB: serverB.active_tx_rt}"> tx_result = {{serverB.tx_result}} </div>
                   </el-collapse-item>
                   <el-collapse-item title="[Buffer]" name="4">
                     <div class="large-text" v-bind:class="{changingB: serverB.active_buffer}"> {{serverB.buffer}} </div>
@@ -51,8 +51,7 @@
       <!--Server A -->
       <el-col :span="8" align="center">
         <div class="img-container" align="center">
-          <img src="../assets/shop.png">
-          <p>10 fish on sale</p>
+          <img src="../assets/dog.jpg">
         </div>
         <el-card class="box-card" style="margin-bottom: 10px;">
           <div slot="header">
@@ -68,10 +67,9 @@
                 <el-collapse v-model="serverA.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1" >
                     <div  class="large-text">
-                      <div>oid = 100,  pre_site = A </div>
-                      <div>name = Fish_Cnt, <span v-bind:class="{changingB: serverA.active_value}">value = {{serverA.value}}</span> </div>
-                      <div v-if="serverA.isLocked" class="changingB"> LOCKED </div>
-                      <div v-if="!serverA.isLocked" class="changingC"> UNLOCKED </div>
+                      <div>set_id = 20 , pre_site = A , </div>
+                      <div>name = Followers ,</div>
+                      <div v-bind:class="{changingB: serverA.active_value}">value = {{serverA.value}}</div>
                     </div>
                   </el-collapse-item>
                   <el-collapse-item title="[Status]" name="2">
@@ -95,7 +93,6 @@
       <el-col :span="8"  align="center">
 
         <div class="img-container" align="center">
-          <img src="../assets/fish3.jpg">
           <img src="../assets/cat2.png">
         </div>
         <el-card class="box-card">
@@ -112,8 +109,9 @@
                 <el-collapse v-model="serverC.activeNames" @change="handleChange">
                   <el-collapse-item title="[Data]" name="1">
                     <div  class="large-text">
-                      <div>oid = 100,  pre_site = A </div>
-                      <div>name = Fish_Cnt, <span v-bind:class="{changingC: serverC.active_value , changingB: serverC.active_valueB}">value = {{serverC.value}}</span> </div>
+                      <div>set_id = 20 , pre_site = A , </div>
+                      <div>name = Followers ,</div>
+                      <div v-bind:class="{changingC: serverC.active_value , changingB: serverC.active_valueB}">value = {{serverC.value}}</div>
                     </div>
                   </el-collapse-item>
                   <el-collapse-item title="[Status]" name="2">
@@ -139,21 +137,15 @@
       </el-col>
     </el-row>
 
-
     <div align="center">
       <el-button type="primary" @click="emulate()">go</el-button>
     </div>
   </div>
-
-
-
-
-
 </template>
 
 <script>
     export default {
-        name: "PSI",
+        name: "PSI_Cset",
         data(){
           return{
 
@@ -161,7 +153,7 @@
 
             serverA:{
               activeNames:[],
-              value : "10",
+              value : "{ Tom:1 , Jerry:1 }",
               committedVTS : "[3,4,5]",
               History: "<3,2> , Fish_Cnt = 10",
               vote:"NULL",
@@ -176,7 +168,7 @@
 
             serverB:{
               activeNames:[],
-              value : "10",
+              value : "{ Tom:1 , Jerry:1 }",
               committedVTS : "[3,4,5]",
               History: "NULL",
               current_tx_no : "NULL",
@@ -196,7 +188,7 @@
 
             serverC:{
               activeNames:[],
-              value : "10",
+              value : "{ Tom:1 , Jerry:1 }",
               committedVTS : "[3,4,5]",
               History: "NULL",
 
@@ -356,38 +348,38 @@
           emulate(){
             switch (this.currentStep) {
               case 1: this.serverB_exec()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 2: this.serverA_vote_for_B()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 3: this.serverC_exec()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 4: this.serverA_vote_for_C()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 5: this.serverC_abort_for_lock()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 6: this.serverB_commit()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 7: this.serverB_propogate()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 8: this.serverC_exec_2()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 9: this.serverA_vote_for_C_2()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 10:this.serverC_abort_for_modify()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
               case 11:this.serverC_receive_propogate()
-                      this.currentStep++
-                      break
+                this.currentStep++
+                break
             }
           }
         }
@@ -395,9 +387,9 @@
 </script>
 
 <style scoped>
-
   .box-card {
     width: 550px;
+    margin-bottom: 20px;
   }
 
   .large-text{
@@ -410,12 +402,11 @@
     margin-bottom: 10px;
   }
 
-
-  .changingB{
+  .redColor{
     color : red
   }
 
-  .changingC{
+  .blueColor{
     color : blue
   }
 </style>
