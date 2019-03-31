@@ -103,7 +103,7 @@
         data(){
           return{
 
-            currentStep:1,
+            currentStep:0,
 
             serverA:{
 
@@ -188,8 +188,17 @@
 
           },
 
+          openCalp(){
+            this.serverA.activeNames = ["1","2","3","4"]
+            this.serverB.activeNames = ["1","2"]
+          },
+
+
           emulate(){
             switch (this.currentStep) {
+              case 0: this.openCalp()
+                      this.currentStep++
+                      break
               case 1: this.serverA_exec()
                       this.currentStep++
                       break
@@ -223,7 +232,9 @@
   }
 
   .img-container{
-    min-height: 200px;
+    /*min-height: 200px;*/
+    /*max-height: 220px;*/
+    height: 250px;
     margin-bottom: 10px;
   }
 

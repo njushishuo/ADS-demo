@@ -157,7 +157,7 @@
         data(){
           return{
 
-            currentStep:1,
+            currentStep:0,
 
             serverA:{
               activeNames:[],
@@ -354,10 +354,17 @@
             this.serverA.History = "NULL"
             this.serverA.active_History = false
           },
-
-
+          openCalp(){
+            this.serverA.activeNames = ["1","2","3"]
+            this.serverB.activeNames = ["1","2","3","4"]
+            this.serverC.activeNames = ["1","2","3","4"]
+          },
           emulate(){
             switch (this.currentStep) {
+              case 0: this.openCalp()
+                      this.currentStep++
+                      break
+
               case 1: this.serverB_exec()
                       this.currentStep++
                       break
